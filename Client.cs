@@ -1,26 +1,42 @@
 ﻿using Discord.WebSocket;
 using Discord;
 using Newtonsoft.Json;
+using DotNetEnv;
+using Serafin.Handlers;
+using Discord.Commands;
 
 namespace Serafin
 {
   public class Program
   {
-
     public static async Task Main()
     {
-      var SecretFile = File.ReadAllText("D:\\Docs\\Panchessco\\Serafin.net\\Serafín\\secret.json");
+      Env.Load();
 
-      Dictionary<string, string> Secret = JsonConvert.DeserializeObject<Dictionary<string, string>>(SecretFile);
+      string? AuthToken = Environment.GetEnvironmentVariable("AUTH_TOKEN");
+      if (AuthToken == null) throw new Exception("No AuthToken Found.");
 
-      DiscordSocketClient Client = new DiscordSocketClient();
+      DiscordSocketConfig Settings = new DiscordSocketConfig()
+      {
+        MessageCacheSize = 200,
+        GatewayIntents = GatewayIntents.All
+      };
 
-      Console.WriteLine(Secret["AuthToken"]);
+      DiscordSocketClient Client = new DiscordSocketClient(Settings);
 
-      await Client.LoginAsync(TokenType.Bot, Secret["AuthToken"]);
+      await Client.LoginAsync(TokenType.Bot, AuthToken);
       await Client.StartAsync();
 
-      Console.ReadLine();
+      CommandHandler commandHandler = new CommandHandler(Client, new CommandService());
+      commandHandler.LoadCommands();
+
+      Client.Ready += () =>
+      {
+        Console.WriteLine("Teto is connected!");
+        return Task.CompletedTask;
+      };
+
+      await Task.Delay(-1);
     }
   }
 }
