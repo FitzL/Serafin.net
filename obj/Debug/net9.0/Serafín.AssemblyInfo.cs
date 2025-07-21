@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Serafín")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+403ad23be81038b8bd322d352860f61c86823ac1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7eb1779ee2003fac91845df44d561ad88f65f2e8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Serafín")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Serafín")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

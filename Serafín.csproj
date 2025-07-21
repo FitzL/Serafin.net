@@ -11,4 +11,6 @@
     <PackageReference Include="Discord.Net" Version="3.18.0" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties secret_1json__JsonSchema="https://alec016.github.io/Custom-Machinery/Json%20Schema/src/main/resources/schemas/custom_machinery_machine.json" /></VisualStudio></ProjectExtensions>
+
 </Project>
