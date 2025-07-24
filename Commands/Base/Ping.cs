@@ -1,22 +1,22 @@
-﻿using System;
+﻿using Discord.Commands;
+using Serafin.NET.Utility.ExtendedClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Discord.Commands;
+using ZstdSharp.Unsafe;
 
 namespace Serafin.Commands.Base
 {
-  public class Ping : ModuleBase<SocketCommandContext>
+  [Summary("Pong!")]
+  public class Ping : ModuleBase<ExtendedContext>
   {
     [Command("Ping")]
-    [Summary("Pong!")]
-    public Task PingAsync()
+    public async Task PingAsync()
     {
-#if DEBUG
-      Console.Write(Context.Message);
-#endif
-      return ReplyAsync("Pong!");
+      await ReplyAsync("Pong!");
+      return;
     }
   }
 }
