@@ -17,7 +17,7 @@ namespace Serafin.Commands.Misc
   {
     [Command("MCS")]
     [Alias("Server")]
-    [Price(25)]
+    [Price(300)]
     public async Task RunServer()
     {
       var Port = 25565;
@@ -35,7 +35,7 @@ namespace Serafin.Commands.Misc
 
       process.Start();
 
-      await ReplyAsync($"Servidor corriendo en la ip:\n`{await Helper.GetMyPublicIp()}:{Port}`");
+      await ReplyAsync($"Servidor corriendo en la ip:\n`{await Helper.GetMyPublicIp()}:{Port}`\n-# teto dox te da la ip directamente");
       return;
     }
   }

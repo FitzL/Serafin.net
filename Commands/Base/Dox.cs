@@ -1,6 +1,7 @@
 ﻿using Discord.Commands;
 using Serafin.NET.Utility.ExtendedClasses;
 using Serafin.NET.Utility.Misc;
+using Serafin.NET.Utility.Preconditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,15 @@ using ZstdSharp.Unsafe;
 
 namespace Serafin.Commands.Base
 {
-  [Summary("Pong!")]
-  public class Ping : ModuleBase<ExtendedContext>
+  [Summary("Doxea a Fitz!")]
+  public class Dox : ModuleBase<ExtendedContext>
   {
-    [Command("Ping")]
-    public async Task PingAsync(params string[] args)
+    [Command("Dox")]
+    [Alias("Ip")]
+    [Price(5)]
+    public async Task DoxAsync(params string[] args)
     {
-      await ReplyAsync("Pong!");
-      await Helper.GetUser(String.Join(" ", args), Context);
+      await ReplyAsync($"Ip de Fitz:\n`{await Helper.GetMyPublicIp()}`");
       return;
     }
   }

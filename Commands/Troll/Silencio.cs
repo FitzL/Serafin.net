@@ -17,11 +17,10 @@ namespace Serafin.Commands.Base
   {
     [Price(40)]
     [Command("Silencio")]
+    [Testing]
     [Alias("SilencioGil", "Calla", "CallaGil")]
     public async Task SilencioGil(string message)
     {
-      Console.Write("hi");
-
       SocketUser? Mention = Context.Message.MentionedUsers.FirstOrDefault();
 
       if (Mention == null)

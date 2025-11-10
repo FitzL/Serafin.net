@@ -9,6 +9,7 @@ using Serafin.NET.Handlers;
 using Serafin.NET.Utility;
 using Serafin.NET.Utility.ExtendedClasses;
 using Serafin.NET.Utility.Misc;
+using Serafin.NET.Database.Models;
 
 namespace Serafin.NET
 {
@@ -17,6 +18,7 @@ namespace Serafin.NET
     public static MongoConnection? MongoConnection;
     public static HttpClient HttpClient = new HttpClient();
     public static DiscordSocketClient? Client;
+    public static User? Serafin;
     public static string BotCurrency = " 🥖";
     public static string BotBox = " 🥡";
   }
@@ -48,18 +50,6 @@ namespace Serafin.NET
       await Client.LoginAsync(TokenType.Bot, AuthToken);
       await Client.StartAsync();
 
-      // Console ready at end of Socket setup
-
-      Client.Ready += () =>
-      {
-#if DEBUG
-        Console.WriteLine("Teto is connected!");
-#else
-        Console.WriteLine("Seraphine is connected!");
-#endif
-        return Task.CompletedTask;
-      };
-
       // Set up database connection
 
       var MongoURI = Environment.GetEnvironmentVariable("MONGO_URI");
@@ -70,24 +60,38 @@ namespace Serafin.NET
 
       var MongoConnection = new MongoConnection(MongoURI, Database);
 
-      // Set up global variables and events.
+      // Console ready at end of Socket setup
 
-      Global.MongoConnection = MongoConnection;
-      Global.Client = Client;
+      Client.Ready += async () =>
+      {
+#if DEBUG
+        Console.WriteLine("Teto is connected!");
+#else
+        Console.WriteLine("Seraphine is connected!");
+#endif
+        Global.Serafin = MongoConnection.GetUser(Client.CurrentUser.Id);
+        Global.Client = Client;
 
-      ExtendedCommandService commandService = new ExtendedCommandService();
+        // Set up global variables and events.
 
-      UpdateHandler updater = new UpdateHandler();
-      CommandHandler commandHandler = new CommandHandler(commandService);
+        Global.MongoConnection = MongoConnection;
 
-      new CommandChargeHandler(commandService);
+        ExtendedCommandService commandService = new ExtendedCommandService();
 
-      await commandHandler.LoadCommands();
-      Console.WriteLine(await Helper.GetMyPublicIp());
+        UpdateHandler updater = new UpdateHandler();
+        CommandHandler commandHandler = new CommandHandler(commandService);
+
+        new CommandChargeHandler(commandService);
+
+        await commandHandler.LoadCommands();
 
 #if DEBUG
-      commandHandler.LogCommands();
+        commandHandler.LogCommands();
 #endif
+        return;
+      };
+
+      // stall for run
 
       await Task.Delay(-1);
     }

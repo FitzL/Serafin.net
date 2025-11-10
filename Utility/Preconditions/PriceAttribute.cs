@@ -28,7 +28,7 @@ namespace Serafin.NET.Utility.Preconditions
     public override async Task<PreconditionResult> CheckPermissionsAsync(ICommandContext Context, CommandInfo command, IServiceProvider services)
     {
       if (Price < 1) return PreconditionResult.FromSuccess();
-      User? User = MongoConnection.GetUser(Context.User.Id.ToString());
+      User? User = MongoConnection.GetUser(Context.User.Id);
 
       if (User.currency < Price)
       {

@@ -30,7 +30,7 @@ namespace Serafin.NET.Handlers
       if (!Command.IsSpecified) return;
 
       if (!Result.IsSuccess) {
-        Console.WriteLine($"{Command.Value.Name} falló.");
+        Console.WriteLine($"{Command.Value.Name} falló.\n" + Result.Error);
         return; 
       }
 
@@ -40,17 +40,16 @@ namespace Serafin.NET.Handlers
 
       int Cost = Price.Price;
 
-      MongoUser = mongoConnection.GetUser(Context.Message.Author.Id.ToString());
+      MongoUser = mongoConnection.GetUser(Context.Message.Author.Id);
 
       if (MongoUser == null) return;
 
-      MongoUser.currency -= Cost;
-      mongoConnection.UpdateUser(MongoUser);
+      MongoUser.TransferCurrency(Global.Serafin, Cost);
 
       var embed = new EmbedBuilder()
       {
-        Description = $"-{Cost}{Global.BotCurrency}",
-        Color = Helper.GetUserColor(await Context.Guild.GetCurrentUserAsync() as SocketUser)
+        Description = $"-{Cost}{Global.Serafin.serverCurrency}",
+        Color = Helper.GetUserColor(await Context.Guild.GetCurrentUserAsync())?? null
       };
 
       await Context.Message.Channel.SendMessageAsync(embed: embed.Build() );

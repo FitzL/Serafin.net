@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using MongoDB.Bson;
 using Serafin.NET.Database.Models;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,23 @@ namespace Serafin.NET.Utility.Misc
 {
   public static partial class Helper
   {
-    public static Color? GetUserColor(SocketUser User)
-    {
-      var user = User as SocketGuildUser;
+    //public static Color? GetUserColor(IGuildUser User) => GetUserColor((SocketUser) User) ;
 
-      var color = user.Roles
+    public static Color? GetUserColor(IGuildUser User)
+    {
+      Console.WriteLine(User);
+
+      if (User.RoleIds == null) return null;
+
+      List<IRole> colourRoles = new List<IRole>();
+
+      foreach (var id in User.RoleIds) colourRoles.Add(User.Guild.GetRole(id));
+
+      foreach (var role in colourRoles) Console.WriteLine(role);
+
+      var color = colourRoles
+          .OrderByDescending(r => r)
           .Where(r => r.Color.RawValue != 0)
-          .OrderByDescending(r => r.Position)
           .FirstOrDefault()?.Color;
 
       if (color != null) return color;

@@ -14,7 +14,7 @@ namespace Serafin.Commands.Base
   {
     [Command("Say")]
     [Price(1)]
-    [RequireOwner]
+    [AdminCommand]
     public async Task SayAsync([Remainder] string message)
     {
       Console.WriteLine(String.Join(" ", Context.Args));
