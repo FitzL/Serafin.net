@@ -21,6 +21,7 @@ namespace Serafin.NET.Handlers
     public async Task UserUpdates(SocketMessage RawMessage)
     {
       var Message = RawMessage as SocketUserMessage;
+      if (Message == null) return;
       if (Message.Source == MessageSource.Webhook) return;
 
       var user = mongoConnection.GetUser(Message.Author.Id);
@@ -35,7 +36,7 @@ namespace Serafin.NET.Handlers
       if (user.lastActivity == -1) 
       { 
         user.Kyu();
-        user.Update();
+        await Task.Run(() => user.Update());
         return;
       }
 
@@ -43,7 +44,7 @@ namespace Serafin.NET.Handlers
       user.UpdateXp();
       user.DoPay();
 
-      user.Update(); 
+      await Task.Run( () => user.Update()); 
       return;
     }
   }

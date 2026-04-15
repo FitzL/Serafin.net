@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Discord.Commands;
 using Serafin.NET.Utility.ExtendedClasses;
 using Serafin.NET.Utility.Preconditions;
+using Serafin.NET.Utility.Misc;
 
 namespace Serafin.Commands.Base
 {
@@ -25,7 +26,7 @@ namespace Serafin.Commands.Base
         return;
       }
 
-      await Context.Channel.SendMessageAsync(String.Join(" ", Context.Args));
+      await Context.Channel.SendMessageAsync(Helper.CleanString(String.Join(" ", Context.Args)));
       await Context.Message.DeleteAsync();
       return;
     }

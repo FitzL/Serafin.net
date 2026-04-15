@@ -19,7 +19,6 @@ namespace Serafin.NET.Database
 #endif
       var Filter = Builders<User>.Filter.Eq(u => u._id, _id);
       var user = Users.Find(Filter).FirstOrDefault();
-      //if (user == null) return null;
 #if !DEBUG
       Console.WriteLine($"Found user {user.username} in MongoDB");
 #endif

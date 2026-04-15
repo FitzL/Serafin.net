@@ -18,7 +18,7 @@ namespace Serafin.NET.Utility.Misc
 
       if (user == null) return null;
 
-      if (user.Nickname != null) return user.Nickname;
+      if (user.Nickname != "" || user.Nickname != null) return user.Nickname;
       return user.GlobalName;
     }
     public static string GetNickname(SocketUser User)

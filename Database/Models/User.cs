@@ -20,9 +20,14 @@ public partial class User
   public double nextPay { get; set; } = 0;
   public int cajas { get; set; } = 0;
   public bool payed { get; set; } = false;
-  public string? serverCurrency { get; set; }
+  public string? serverCurrency { get; set; } = null;
   public bool isBotTester { get; set; } = false;
   public bool isBotAdmin { get; set; } = false;
+  public string lichess { get; set; } = null;
+  public bool isLichessVerified { get; set; } = false;
+  public string chesscom { get; set; } = null;
+  public bool isChesscomVerified { get; set; } = false;
+  public DateTime RegisteredDate { get; set; } = DateTime.Now;
   [BsonIgnore]
   public Random Rand = new Random();
 }

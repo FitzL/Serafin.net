@@ -19,7 +19,7 @@ namespace Serafin.Commands.Base
     [Price(5)]
     public async Task DoxAsync(params string[] args)
     {
-      await ReplyAsync($"Ip de Fitz:\n`{await Helper.GetMyPublicIp()}`");
+      await ReplyAsync($"Ip de Fitz:\n`???.???.???.???`. \n-# `mc.panchessco.space`");
       return;
     }
   }

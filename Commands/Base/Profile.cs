@@ -21,7 +21,7 @@ namespace Serafin.Commands.Base
 
     [Command("Profile")]
     [Alias("Perfil", "P")]
-    public async Task PingAsync(string keyword = null)
+    public async Task ProfileAsync(string keyword = null)
     {
       var _u = await Helper.GetUser(keyword, Context);
 
@@ -32,6 +32,10 @@ namespace Serafin.Commands.Base
         _u = Context.Message.Author as IGuildUser;
       }
       else user = mongoConnection.GetUser((_u).Id);
+
+
+
+      if (false) return;
 
       var Embed = new EmbedBuilder()
       {

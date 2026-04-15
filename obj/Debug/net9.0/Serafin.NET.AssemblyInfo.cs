@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Serafin.NET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+733192a47af221337522bc8d542007ab155df0a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+725675095d71a316dd853e4713b8229ae5260350")]
 [assembly: System.Reflection.AssemblyProductAttribute("Serafin.NET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Serafin.NET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

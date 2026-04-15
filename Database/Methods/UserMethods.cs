@@ -11,8 +11,11 @@ namespace Serafin.NET.Database.Models
   {
     private bool CheckXpTimer()
     {
+
+      UpdateLevel();
       return this.lastActivity > this.nextXp;
     }
+
     public void UpdateXp()
     {
       if (!CheckXpTimer()) return;
@@ -22,19 +25,17 @@ namespace Serafin.NET.Database.Models
       this.nextXp = this.lastActivity + Xp.Delay + Rand.Next(Xp.DelayVariance);
 
       this.xp += Gain;
-
-      UpdateLevel();
     }
 
     public void UpdateLevel()
     {
-      this.lvl = Math.Max((int)((Math.Log(this.xp / 2) + 1) / Math.Log(2)) + 1, 0);
+      this.lvl = Math.Max((int)((Math.Log(this.xp / 2) + 1) / Math.Log(1.25)) + 1, 0);
 
     }
 
     public bool CheckPayTime()
     {
-      return this.nextPay > this.lastActivity;
+      return this.nextPay < this.lastActivity;
     }
 
     public int GetPay()
@@ -49,7 +50,7 @@ namespace Serafin.NET.Database.Models
       if (!CheckPayTime()) return;
       this.currency += GetPay();
 
-      this.nextPay = this.lastActivity + Pay.WorkingHours + this.Rand.Next(Pay.WorkingHoursVariance);
+      this.nextPay = this.lastActivity + (Pay.WorkingHours + this.Rand.Next(Pay.WorkingHoursVariance)) * 1000;
     }
 
     public void UpdateLastActivity()

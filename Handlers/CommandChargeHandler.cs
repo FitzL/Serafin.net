@@ -30,7 +30,7 @@ namespace Serafin.NET.Handlers
       if (!Command.IsSpecified) return;
 
       if (!Result.IsSuccess) {
-        Console.WriteLine($"{Command.Value.Name} falló.\n" + Result.Error);
+        Console.WriteLine($"{Command.Value.Name} falló.\n" + Result);
         return; 
       }
 

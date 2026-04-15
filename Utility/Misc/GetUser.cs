@@ -12,6 +12,7 @@ namespace Serafin.NET.Utility.Misc
 {
   public partial class Helper
   {
+    public static async Task<IGuildUser?> GetUser(char KeyWord, ICommandContext Context) => await GetUser(KeyWord.ToString(), Context);
     public static async Task<IGuildUser?> GetUser(string KeyWord, ICommandContext Context)
     {
       if (string.IsNullOrWhiteSpace(KeyWord)) return null; 
