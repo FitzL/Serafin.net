@@ -10,6 +10,7 @@ using Serafin.NET.Utility;
 using Serafin.NET.Utility.ExtendedClasses;
 using Serafin.NET.Utility.Misc;
 using Serafin.NET.Database.Models;
+using System.Diagnostics;
 
 namespace Serafin.NET
 {
@@ -21,6 +22,7 @@ namespace Serafin.NET
     public static User? Serafin;
     public static string BotCurrency = " 🥖";
     public static string BotBox = " 🥡";
+    public static Process? Minecraft; 
   }
 
   public class Program
@@ -80,6 +82,7 @@ namespace Serafin.NET
 
         UpdateHandler updater = new UpdateHandler();
         CommandHandler commandHandler = new CommandHandler(commandService);
+        MinecraftServerMessageHandler sender = new MinecraftServerMessageHandler();
 
         new CommandChargeHandler(commandService);
 

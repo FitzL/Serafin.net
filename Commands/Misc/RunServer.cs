@@ -5,11 +5,13 @@ using Serafin.NET.Utility;
 using Serafin.NET.Utility.ExtendedClasses;
 using Serafin.NET.Utility.Misc;
 using Serafin.NET.Utility.Preconditions;
+using Sprache;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Serafin.Commands.Misc
@@ -31,6 +33,7 @@ namespace Serafin.Commands.Misc
       if (ServerStartBat == null) return;
 
       var process = new Process(); process.StartInfo.FileName = "cmd.exe";
+      var startTime = DateTime.UtcNow;
 
       process.StartInfo.Arguments = $"/c \"{ServerStartBat}\"";
       process.StartInfo.WorkingDirectory = Path.GetDirectoryName(ServerStartBat);
@@ -43,8 +46,11 @@ namespace Serafin.Commands.Misc
       process.OutputDataReceived += (s, e) =>
       {
         if (e.Data == null) return ;
+        if ((DateTime.UtcNow - startTime).TotalSeconds < 30) return;
 
-        logChannel.SendMessageAsync(e.Data);
+        if (e.Data.Contains("rcon", StringComparison.OrdinalIgnoreCase)) return;
+
+        logChannel.SendMessageAsync(Regex.Replace(e.Data, @"\[(?!\d{2}:\d{2}:\d{2}\])[^]]*\]\s*", ""));
       };
 
       process.ErrorDataReceived += (s, e) =>
